@@ -1,66 +1,121 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Interactive Charts</title>
-    <style>
-      body { font-family: system-ui, Arial, sans-serif; margin: 0; background:#0b1020; color:#fff; }
-      header { padding: 18px 24px; border-bottom: 1px solid #1f2a48; display:flex; justify-content:space-between; align-items:center; }
-      h1 { margin: 0; font-weight: 600; }
-      .ver { font-size:12px; opacity:.7 }
-      .tabs { display:flex; gap:10px; padding:12px 24px; flex-wrap:wrap; }
-      .tabs button { background:#1f2a48; border:0; color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; }
-      .tabs button.active { background:#3a4a7a; }
-      .panel { display:none; padding:0 24px 24px; }
-      .panel.active { display:block; }
-      .frame { width:100%; height:72vh; border:0; border-radius:12px; background:#0b1020; }
-    </style>
-    <script>
-      function showPanel(id, btn) {
-        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-      window.addEventListener('DOMContentLoaded', () => {
-        const first = document.querySelector('.tabs button');
-        if (first) first.click();
-      });
-    </script>
-  </head>
-  <body>
-    <header>
-      <h1>Interactive Charts</h1>
-      <div class="ver">Build v8</div>
-    </header>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Interactive Charts — MECA (Animated)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root { --bg:#0b1020; --fg:#fff; --muted:#aab3cf; --line:#1f2a48; --tab:#1f2a48; --tabActive:#3a4a7a; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    header { padding: 18px 24px; border-bottom: 1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
+    h1 { margin:0; font-size: 20px; font-weight: 600; letter-spacing: .2px; }
+    .ver { font-size:12px; color: var(--muted); }
+    .tabs { display:flex; gap:10px; padding:12px 24px; flex-wrap:wrap; border-bottom: 1px solid var(--line); }
+    .tabs button {
+      background: var(--tab); color: var(--fg); border:0; padding:8px 12px; border-radius:10px;
+      cursor:pointer; font-size:14px; transition: background .15s ease;
+    }
+    .tabs button:hover { background: #2a3861; }
+    .tabs button.active { background: var(--tabActive); }
+    .panel { display:none; padding: 0 24px 24px; }
+    .panel.active { display:block; }
+    .frame {
+      width:100%; height: 76vh; border:0; border-radius: 12px; background: var(--bg);
+      box-shadow: 0 6px 24px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .footer { padding: 10px 24px 24px; color: var(--muted); font-size: 12px; }
+    .links { padding: 4px 24px 18px; font-size: 13px; }
+    .links a { color:#9ec1ff; text-decoration: none; }
+    .links a:hover { text-decoration: underline; }
+  </style>
+  <script>
+    function showPanel(id, btn) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    window.addEventListener('DOMContentLoaded', () => {
+      // open first tab by default
+      const first = document.querySelector('.tabs button');
+      if (first) first.click();
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Interactive Charts — MECA (Animated)</h1>
+    <!-- Update this version text whenever you push to bust cache while testing -->
+    <div class="ver">Build v1</div>
+  </header>
 
-    <div class="tabs">
-      <button onclick="showPanel('tab0', this)">Tabbed Sankey</button>
-      <button onclick="showPanel('tab1', this)">Overall Bars</button>
-      <button onclick="showPanel('tab2', this)">Eggs F Bars</button>
-      <button onclick="showPanel('tab3', this)">Eggs M Bars</button>
-      <button onclick="showPanel('tab4', this)">Burgers F Bars</button>
-      <button onclick="showPanel('tab5', this)">Burgers M Bars</button>
-      <button onclick="showPanel('tab6', this)">Eggs F Sankey</button>
-      <button onclick="showPanel('tab7', this)">Eggs M Sankey</button>
-      <button onclick="showPanel('tab8', this)">Burgers F Sankey</button>
-      <button onclick="showPanel('tab9', this)">Burgers M Sankey</button>
-    </div>
+  <div class="tabs">
+    <!-- Value bars -->
+    <button onclick="showPanel('tab-overall', this)">Schwartz Bars — Overall</button>
+    <button onclick="showPanel('tab-eggs-f-bars', this)">Schwartz Bars — Eggs F</button>
+    <button onclick="showPanel('tab-eggs-m-bars', this)">Schwartz Bars — Eggs M</button>
+    <button onclick="showPanel('tab-burg-f-bars', this)">Schwartz Bars — Burgers F</button>
+    <button onclick="showPanel('tab-burg-m-bars', this)">Schwartz Bars — Burgers M</button>
+    <!-- Sankeys -->
+    <button onclick="showPanel('tab-ef-sankey', this)">Sankey — Eggs F</button>
+    <button onclick="showPanel('tab-em-sankey', this)">Sankey — Eggs M</button>
+    <button onclick="showPanel('tab-bf-sankey', this)">Sankey — Burgers F</button>
+    <button onclick="showPanel('tab-bm-sankey', this)">Sankey — Burgers M</button>
+  </div>
 
-    <!-- Adjust src paths and add ?v=8 while testing -->
-    <div id="tab0" class="panel"><iframe class="frame" src="Sankey_Tabs_Interactive.html?v=8"></iframe></div>
-    <div id="tab1" class="panel"><iframe class="frame" src="Overall_Schwartz_Animated.html?v=8"></iframe></div>
-    <div id="tab2" class="panel"><iframe class="frame" src="Eggs_Female_Schwartz_Animated.html?v=8"></iframe></div>
-    <div id="tab3" class="panel"><iframe class="frame" src="Eggs_Male_Schwartz_Animated.html?v=8"></iframe></div>
-    <div id="tab4" class="panel"><iframe class="frame" src="Burgers_Female_Schwartz_Animated.html?v=8"></iframe></div>
-    <div id="tab5" class="panel"><iframe class="frame" src="Burgers_Male_Schwartz_Animated.html?v=8"></iframe></div>
-    <div id="tab6" class="panel"><iframe class="frame" src="Eggs_Female_Sankey_Animated.html?v=8"></iframe></div>
-    <div id="tab7" class="panel"><iframe class="frame" src="Eggs_Male_Sankey_Animated.html?v=8"></iframe></div>
-    <div id="tab8" class="panel"><iframe class="frame" src="Burgers_Female_Sankey_Animated.html?v=8"></iframe></div>
-    <div id="tab9" class="panel"><iframe class="frame" src="Burgers_Male_Sankey_Animated.html?v=8"></iframe></div>
-  </body>
-</html>
+  <!-- Panels (iframes point to your 9 animated HTML files sitting next to index.html) -->
+  <div id="tab-overall" class="panel">
+    <iframe class="frame" src="Overall_Schwartz_Animated.html"></iframe>
+  </div>
 
-    <div class="note">Tip: if a chart looks cached, add <code>?v=2</code> to its <code>src</code> (e.g., <code>Overall_Schwartz_Animated.html?v=2</code>).</div>
-  </body>
+  <div id="tab-eggs-f-bars" class="panel">
+    <iframe class="frame" src="Eggs_Female_Schwartz_Animated.html"></iframe>
+  </div>
+
+  <div id="tab-eggs-m-bars" class="panel">
+    <iframe class="frame" src="Eggs_Male_Schwartz_Animated.html"></iframe>
+  </div>
+
+  <div id="tab-burg-f-bars" class="panel">
+    <iframe class="frame" src="Burgers_Female_Schwartz_Animated.html"></iframe>
+  </div>
+
+  <div id="tab-burg-m-bars" class="panel">
+    <iframe class="frame" src="Burgers_Male_Schwartz_Animated.html"></iframe>
+  </div>
+
+  <div id="tab-ef-sankey" class="panel">
+    <iframe class="frame" src="Eggs_Female_Sankey_Animated.html"></iframe>
+  </div>
+
+  <div id="tab-em-sankey" class="panel">
+    <iframe class="frame" src="Eggs_Male_Sankey_Animated.html"></iframe>
+  </div>
+
+  <div id="tab-bf-sankey" class="panel">
+    <iframe class="frame" src="Burgers_Female_Sankey_Animated.html"></iframe>
+  </div>
+
+  <div id="tab-bm-sankey" class="panel">
+    <iframe class="frame" src="Burgers_Male_Sankey_Animated.html"></iframe>
+  </div>
+
+  <div class="links">
+    Quick links (open directly):
+    <a href="Overall_Schwartz_Animated.html">Overall Bars</a> •
+    <a href="Eggs_Female_Schwartz_Animated.html">Eggs F Bars</a> •
+    <a href="Eggs_Male_Schwartz_Animated.html">Eggs M Bars</a> •
+    <a href="Burgers_Female_Schwartz_Animated.html">Burgers F Bars</a> •
+    <a href="Burgers_Male_Schwartz_Animated.html">Burgers M Bars</a> •
+    <a href="Eggs_Female_Sankey_Animated.html">Eggs F Sankey</a> •
+    <a href="Eggs_Male_Sankey_Animated.html">Eggs M Sankey</a> •
+    <a href="Burgers_Female_Sankey_Animated.html">Burgers F Sankey</a> •
+    <a href="Burgers_Male_Sankey_Animated.html">Burgers M Sankey</a>
+  </div>
+
+  <div class="footer">
+    Tip: if a chart looks cached during testing, add <code>?v=2</code> to its URL (e.g., change an iframe <code>src</code> to <code>Overall_Schwartz_Animated.html?v=2</code>) and update the “Build v#” label above when you push.
+  </div>
+</body>
 </html>
