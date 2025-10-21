@@ -2,18 +2,18 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Interactive Charts Hub</title>
+    <title>Interactive Charts</title>
     <style>
       body { font-family: system-ui, Arial, sans-serif; margin: 0; background:#0b1020; color:#fff; }
-      header { padding: 18px 24px; border-bottom: 1px solid #1f2a48; }
+      header { padding: 18px 24px; border-bottom: 1px solid #1f2a48; display:flex; justify-content:space-between; align-items:center; }
       h1 { margin: 0; font-weight: 600; }
-      .tabs { display:flex; gap:12px; padding:12px 24px; flex-wrap:wrap; }
+      .ver { font-size:12px; opacity:.7 }
+      .tabs { display:flex; gap:10px; padding:12px 24px; flex-wrap:wrap; }
       .tabs button { background:#1f2a48; border:0; color:#fff; padding:8px 12px; border-radius:8px; cursor:pointer; }
       .tabs button.active { background:#3a4a7a; }
       .panel { display:none; padding:0 24px 24px; }
       .panel.active { display:block; }
       .frame { width:100%; height:72vh; border:0; border-radius:12px; background:#0b1020; }
-      .note { font-size: 12px; opacity: .7; padding: 8px 24px 16px; }
     </style>
     <script>
       function showPanel(id, btn) {
@@ -23,68 +23,43 @@
         btn.classList.add('active');
       }
       window.addEventListener('DOMContentLoaded', () => {
-        // open first tab by default
         const first = document.querySelector('.tabs button');
         if (first) first.click();
       });
     </script>
   </head>
   <body>
-    <header><h1>Interactive Charts</h1></header>
+    <header>
+      <h1>Interactive Charts</h1>
+      <div class="ver">Build v8</div>
+    </header>
 
     <div class="tabs">
-      <button onclick="showPanel('tab-sankey', this)">Tabbed Sankey (all segments)</button>
-      <button onclick="showPanel('tab-overall', this)">Schwartz Bars — Overall</button>
-      <button onclick="showPanel('tab-eggs-f', this)">Schwartz Bars — Eggs Female</button>
-      <button onclick="showPanel('tab-eggs-m', this)">Schwartz Bars — Eggs Male</button>
-      <button onclick="showPanel('tab-burg-f', this)">Schwartz Bars — Burgers Female</button>
-      <button onclick="showPanel('tab-burg-m', this)">Schwartz Bars — Burgers Male</button>
-      <button onclick="showPanel('tab-ef-sankey', this)">Sankey — Eggs Female</button>
-      <button onclick="showPanel('tab-em-sankey', this)">Sankey — Eggs Male</button>
-      <button onclick="showPanel('tab-bf-sankey', this)">Sankey — Burgers Female</button>
-      <button onclick="showPanel('tab-bm-sankey', this)">Sankey — Burgers Male</button>
+      <button onclick="showPanel('tab0', this)">Tabbed Sankey</button>
+      <button onclick="showPanel('tab1', this)">Overall Bars</button>
+      <button onclick="showPanel('tab2', this)">Eggs F Bars</button>
+      <button onclick="showPanel('tab3', this)">Eggs M Bars</button>
+      <button onclick="showPanel('tab4', this)">Burgers F Bars</button>
+      <button onclick="showPanel('tab5', this)">Burgers M Bars</button>
+      <button onclick="showPanel('tab6', this)">Eggs F Sankey</button>
+      <button onclick="showPanel('tab7', this)">Eggs M Sankey</button>
+      <button onclick="showPanel('tab8', this)">Burgers F Sankey</button>
+      <button onclick="showPanel('tab9', this)">Burgers M Sankey</button>
     </div>
 
-    <!-- Panels (each loads an existing HTML chart into an iframe) -->
-    <div id="tab-sankey" class="panel">
-      <iframe class="frame" src="Sankey_Tabs_Interactive.html"></iframe>
-    </div>
-
-    <div id="tab-overall" class="panel">
-      <iframe class="frame" src="Overall_Schwartz_Animated.html"></iframe>
-    </div>
-
-    <div id="tab-eggs-f" class="panel">
-      <iframe class="frame" src="Eggs_Female_Schwartz_Animated.html"></iframe>
-    </div>
-
-    <div id="tab-eggs-m" class="panel">
-      <iframe class="frame" src="Eggs_Male_Schwartz_Animated.html"></iframe>
-    </div>
-
-    <div id="tab-burg-f" class="panel">
-      <iframe class="frame" src="Burgers_Female_Schwartz_Animated.html"></iframe>
-    </div>
-
-    <div id="tab-burg-m" class="panel">
-      <iframe class="frame" src="Burgers_Male_Schwartz_Animated.html"></iframe>
-    </div>
-
-    <div id="tab-ef-sankey" class="panel">
-      <iframe class="frame" src="Eggs_Female_Sankey_Animated.html"></iframe>
-    </div>
-
-    <div id="tab-em-sankey" class="panel">
-      <iframe class="frame" src="Eggs_Male_Sankey_Animated.html"></iframe>
-    </div>
-
-    <div id="tab-bf-sankey" class="panel">
-      <iframe class="frame" src="Burgers_Female_Sankey_Animated.html"></iframe>
-    </div>
-
-    <div id="tab-bm-sankey" class="panel">
-      <iframe class="frame" src="Burgers_Male_Sankey_Animated.html"></iframe>
-    </div>
+    <!-- Adjust src paths and add ?v=8 while testing -->
+    <div id="tab0" class="panel"><iframe class="frame" src="Sankey_Tabs_Interactive.html?v=8"></iframe></div>
+    <div id="tab1" class="panel"><iframe class="frame" src="Overall_Schwartz_Animated.html?v=8"></iframe></div>
+    <div id="tab2" class="panel"><iframe class="frame" src="Eggs_Female_Schwartz_Animated.html?v=8"></iframe></div>
+    <div id="tab3" class="panel"><iframe class="frame" src="Eggs_Male_Schwartz_Animated.html?v=8"></iframe></div>
+    <div id="tab4" class="panel"><iframe class="frame" src="Burgers_Female_Schwartz_Animated.html?v=8"></iframe></div>
+    <div id="tab5" class="panel"><iframe class="frame" src="Burgers_Male_Schwartz_Animated.html?v=8"></iframe></div>
+    <div id="tab6" class="panel"><iframe class="frame" src="Eggs_Female_Sankey_Animated.html?v=8"></iframe></div>
+    <div id="tab7" class="panel"><iframe class="frame" src="Eggs_Male_Sankey_Animated.html?v=8"></iframe></div>
+    <div id="tab8" class="panel"><iframe class="frame" src="Burgers_Female_Sankey_Animated.html?v=8"></iframe></div>
+    <div id="tab9" class="panel"><iframe class="frame" src="Burgers_Male_Sankey_Animated.html?v=8"></iframe></div>
+  </body>
+</html>
 
     <div class="note">Tip: if a chart looks cached, add <code>?v=2</code> to its <code>src</code> (e.g., <code>Overall_Schwartz_Animated.html?v=2</code>).</div>
   </body>
